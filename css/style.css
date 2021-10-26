@@ -18,9 +18,6 @@ button {
     border: none;
 }
 
-input {
-    width: 15vw;
-}
 .event {
     display: flex;
     flex-direction: row;

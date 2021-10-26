@@ -49,6 +49,3 @@ function createEvent() {
 go.addEventListener("click", e => {
     createEvent() 
 })
-const date = document.querySelector(".date").value
-let val = new Date(date)
-console.log(Date.now() - new Date(date));

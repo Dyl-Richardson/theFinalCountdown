@@ -16,9 +16,7 @@ function createEvent() {
     const date = document.querySelector(".date").value
 
     setInterval(function(){
-        let todayDate = new Date()
-        let targetDate = new Date(date)
-        let result = targetDate - todayDate
+        let result = new Date(date) - Date.now()
 
         let weeks =  Math.floor(result/(1000 * 60 * 60 *24 * 7));
         let days = Math.floor(result / (1000 * 60 * 60 * 24));
@@ -32,7 +30,7 @@ function createEvent() {
         else if (result >= 86400000) {
             p.innerText = days + "d " + hours + "h " + " until " + text; 
         }
-        else if (result >= 3600000) {
+        else if (result <= 86399999) {
             p.innerText = hours + "h " + minutes + "m " + seconds + "s " + " until " + text;
         }
         else if (result <= 0) {
@@ -51,3 +49,6 @@ function createEvent() {
 go.addEventListener("click", e => {
     createEvent() 
 })
+const date = document.querySelector(".date").value
+let val = new Date(date)
+console.log(Date.now() - new Date(date));

@@ -1,23 +1,27 @@
-const go = document.querySelector(".go")
+import {eventStorage, addEvent} from "./storage"
 
+//* Create event
 function createEvent() {
-    let div = document.createElement("div")
+    const div = document.createElement("div")
     div.className = "event"
+
     const p = document.createElement("p")
+
     const button = document.createElement("button")
+    button.innerText = "x"
     button.className = "remove"
     button.addEventListener("click", e => {
         button.parentElement.remove()
+        clearInterval(interval)
+        localStorage.clear()
     })
-    button.innerText = "x"
 
     const eventList = document.querySelector(".eventList")
     const text = document.querySelector(".text").value
     const date = document.querySelector(".date").value
-
-    setInterval(function(){
+    
+    let interval = setInterval(function(){
         let result = new Date(date) - Date.now()
-
         let weeks =  Math.floor(result/(1000 * 60 * 60 *24 * 7));
         let days = Math.floor(result / (1000 * 60 * 60 * 24));
         let hours = Math.floor((result % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -27,25 +31,26 @@ function createEvent() {
         if (result >= 604800000) {
             p.innerText = weeks + "w " + " until " + text;
         }
-        else if (result >= 86400000) {
+        if (result <= 604799999) {
             p.innerText = days + "d " + hours + "h " + " until " + text; 
         }
-        else if (result <= 86399999) {
+        if (result <= 86399999) {
             p.innerText = hours + "h " + minutes + "m " + seconds + "s " + " until " + text;
         }
-        else if (result <= 0) {
-            p.innerText = ""
+        if (result <= 999){
+            p.parentElement.remove()
+            clearInterval(interval)
         }
         
     },1000)
-   p.appendChild(button)
    
     eventList.appendChild(div)
     div.appendChild(button)
     div.appendChild(p)
-    
 }
 
+//* Button
+const go = document.querySelector(".go")
 go.addEventListener("click", e => {
     createEvent() 
 })

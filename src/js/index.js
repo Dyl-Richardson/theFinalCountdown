@@ -1,4 +1,4 @@
-import {eventStorage, addEvent} from "./storage"
+import {eventStorage} from "./storage"
 
 //* Create event
 function createEvent() {
@@ -13,7 +13,11 @@ function createEvent() {
     button.addEventListener("click", e => {
         button.parentElement.remove()
         clearInterval(interval)
-        localStorage.clear()
+
+            // Storage
+            const elementToRemove = element => element.id == e.target.parentElement.id
+            eventStorage.splice(eventStorage.findIndex(elementToRemove),1)
+            localStorage.setItem('events', JSON.stringify(eventStorage));
     })
 
     const eventList = document.querySelector(".eventList")

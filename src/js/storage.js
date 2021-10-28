@@ -1,3 +1,4 @@
+let eventIdIndex = 0;
 // Create array of stockage
 export let eventStorage = JSON.parse(localStorage.getItem('events')) || []
 
@@ -15,11 +16,11 @@ export function addEvent() {
         button.innerText = "x"
         button.className = "remove"
         button.addEventListener("click", e => {
-            button.parentElement.remove()
+            const elementToRemove = element => element.id == e.target.parentElement.id
+            eventStorage.splice(eventStorage.findIndex(elementToRemove),1)
+            localStorage.setItem('events', JSON.stringify(eventStorage));
             clearInterval(interval)
-            eventStorage[i]
-            console.log(localStorage.removeItem(eventStorage[i]));
-            console.log(i);
+            button.parentElement.remove()
         })
     
         let interval = setInterval(function(){
@@ -46,7 +47,6 @@ export function addEvent() {
             
         },1000)
 
-        // p.textContent = eventStorage[i].date + eventStorage[i].name
         eventList.appendChild(div)
         div.appendChild(button)
         div.appendChild(p)
@@ -61,11 +61,13 @@ go.addEventListener("click", e => {
 
     const event = {
     name: text,
-    date: date
+    date: date,
+    id: eventIdIndex
     }
     e.preventDefault()
     eventStorage.push(event)
     localStorage.setItem('events', JSON.stringify(eventStorage))
+    eventIdIndex++
 })
 
 // Add on reload

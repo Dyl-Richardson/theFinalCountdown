@@ -1,0 +1,29 @@
+body {
+    /* padding: 0 20%; */
+    display: flex;
+    flex-direction: column;
+}
+
+.eventList {
+    display: flex;
+    flex-direction: column;
+
+}
+button {
+    cursor: pointer;
+}
+.remove {
+    color: red;
+    background: none;
+    border: none;
+}
+
+.event {
+    display: flex;
+    flex-direction: row;
+}
+
+div, label, h1{
+    margin: auto;
+}
+/*# sourceMappingURL=index.2f9aa5e4.css.map */
